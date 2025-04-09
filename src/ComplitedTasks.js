@@ -15,7 +15,7 @@ import UpdateTask from "./UpdateTask";
 
 export default function ComplitedTsks({ typeTasks }) {
   useEffect(() => {
-    const tasksStorage = JSON.parse(localStorage.getItem("todos"));
+    const tasksStorage = JSON.parse(localStorage.getItem("todos")) ?? [];
     setShowTasks(tasksStorage);
   }, []);
 
