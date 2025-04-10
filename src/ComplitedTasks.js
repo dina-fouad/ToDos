@@ -13,7 +13,7 @@ import { TodoContext } from "./TodoContext";
 import UpdateTask from "./UpdateTask";
 
 
-export default function ComplitedTsks({ typeTasks }) {
+export default function ComplitedTsks({ typeTasks ,toastMsg }) {
   useEffect(() => {
     const tasksStorage = JSON.parse(localStorage.getItem("todos")) ?? [];
     setShowTasks(tasksStorage);
@@ -35,6 +35,8 @@ export default function ComplitedTsks({ typeTasks }) {
     setNewTask("");
   }
 
+
+
   function colorIsDone(task) {
     return task.isCompleted ? "green" : "#9f6eff";
   }
@@ -52,6 +54,9 @@ function lineThrough(task){
     return "none";
   }
 }
+
+
+
 
   
   let showAllTasks = typeTasks.map((task, index) => {
@@ -107,9 +112,9 @@ function lineThrough(task){
               <CheckOutlinedIcon style={{ color: "white" }} fontSize="small" />
             </Fab>
 
-            <UpdateTask indexId={task.id} index={index} />
+            <UpdateTask toastMsg={toastMsg} indexId={task.id} index={index} />
 
-            <DeleteTask index={index} />
+            <DeleteTask index={index} toastMsg={toastMsg} />
           </Box>
         </Box>
       </React.Fragment>

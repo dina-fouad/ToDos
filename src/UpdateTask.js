@@ -4,7 +4,7 @@ import ModalUpdate from "./ModalUpdate";
 import { useState } from "react";
 
 
-export default function UpdateTask({indexId ,index}) {
+export default function UpdateTask({indexId ,index ,toastMsg}) {
     const [showModal, setShowModal] = useState(false);
 
   return (
@@ -19,13 +19,14 @@ export default function UpdateTask({indexId ,index}) {
         aria-label="edit"
         onClick={() => setShowModal(true)}
       >
-        <ModeRoundedIcon fontSize="small" />
+        <ModeRoundedIcon  fontSize="small" />
       </Fab>
       <ModalUpdate
         showModal={showModal}
         setShowModal={setShowModal}
         indexId={indexId}
         index={index}
+        toastMsg={toastMsg}
       />
     </>
   );

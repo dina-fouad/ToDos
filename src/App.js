@@ -7,6 +7,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ComplitedTsks from "./ComplitedTasks";
 import { TodoContext } from "./TodoContext";
 import { useState } from "react";
+import { useSnackbar } from "notistack";
 
 const theme = createTheme({
   palette: {
@@ -32,12 +33,21 @@ const theme = createTheme({
 function App() {
   const [showTasks, setShowTasks] = useState([]);
   const [displayTasks, setDisplayTasks] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
+
+  function toastMsg(msg, type) {
+    enqueueSnackbar(msg, { variant: type });
+  }
+
+  
 
   const completedTasks = showTasks.filter((task) => {
+    console.log("completed");
     return task.isCompleted;
   });
 
   const inCompletedTasks = showTasks.filter((task) => {
+    console.log("incompleted");
     return !task.isCompleted;
   });
 
@@ -61,8 +71,8 @@ function App() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              flexDirection: "column", 
-              paddingY: "30px", 
+              flexDirection: "column",
+              paddingY: "30px",
             }}
           >
             <Box
@@ -118,7 +128,11 @@ function App() {
                 </Button>
               </ButtonGroup>
 
-              <ComplitedTsks typeTasks={typeTasks} />
+              <ComplitedTsks
+                typeTasks={typeTasks}
+                toastMsg={toastMsg}
+               
+              />
             </Box>
           </Container>
         </ThemeProvider>

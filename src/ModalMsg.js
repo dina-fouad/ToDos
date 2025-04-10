@@ -8,10 +8,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useContext } from "react";
 import { TodoContext } from "./TodoContext";
 
-export default function ModalMsg({ show, setShow, index }) {
+export default function ModalMsg({ show, setShow, index ,toastMsg}) {
   const { showTasks, setShowTasks } = useContext(TodoContext);
 
   function dltTask() {
+    toastMsg("تم حذف المهمة بنجاح", "error");
     const deleteTask = [...showTasks];
     deleteTask.splice(index, 1);
     localStorage.setItem("todos", JSON.stringify(deleteTask));

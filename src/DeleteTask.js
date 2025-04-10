@@ -4,7 +4,7 @@ import ModalMsg from "./ModalMsg";
 import { useState } from "react";
 
 
-export default function DeleteTask({ index }) {
+export default function DeleteTask({ index ,toastMsg}) {
   const [show, setShow] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ export default function DeleteTask({ index }) {
       >
         <DeleteForeverRoundedIcon fontSize="small" />
       </Fab>
-      <ModalMsg show={show} setShow={setShow} index={index} />
+      <ModalMsg toastMsg={toastMsg}show={show} setShow={setShow} index={index} />
     </>
   );
 }

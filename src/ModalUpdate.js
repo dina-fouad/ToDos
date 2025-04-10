@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { TodoContext } from "./TodoContext";
 
-export default function ModalUpdate({ showModal, setShowModal, indexId,index }) {
+export default function ModalUpdate({ showModal, setShowModal, indexId,index ,toastMsg}) {
   const { showTasks, setShowTasks } = useContext(TodoContext);
   const [title, setTitle] = useState(showTasks[index].task);
 
@@ -17,11 +17,13 @@ export default function ModalUpdate({ showModal, setShowModal, indexId,index }) 
   }
 
   function updateTsk() {
+    toastMsg("!تم تعديل بنجاح", "success");
     const updatedTasks = showTasks.map((t) => {
       if (t.id === indexId) {
         return {
           ...t,
           task: title,
+          
         };
       }
       return t;
