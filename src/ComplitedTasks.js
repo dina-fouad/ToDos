@@ -4,35 +4,28 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import Fab from "@mui/material/Fab";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import React from "react";
 import DeleteTask from "./DeleteTask";
-import { useContext, useEffect } from "react";
+import { useContext ,useEffect } from "react";
 import { TodoContext } from "./TodoContext";
 import UpdateTask from "./UpdateTask";
 
 
+
 export default function ComplitedTsks({ typeTasks ,toastMsg }) {
   useEffect(() => {
-    const tasksStorage = JSON.parse(localStorage.getItem("todos")) ?? [];
-    setShowTasks(tasksStorage);
+  dispatch({type : "get"})
   }, []);
 
   const [newTask, setNewTask] = useState("");
-  const { showTasks, setShowTasks } = useContext(TodoContext);
+  const {dispatch}  = useContext(TodoContext);
 
   function addTask() {
-    let newToDo = {
-      id: uuidv4(),
-      task: newTask,
-      isCompleted: false,
-    };
-    let updateLocalStorage = [...showTasks, newToDo];
-    setShowTasks([...showTasks, newToDo]);
-    localStorage.setItem("todos", JSON.stringify(updateLocalStorage));
+   dispatch({type : "added" , payload : newTask})
+   setNewTask("");
 
-    setNewTask("");
   }
 
 
@@ -98,15 +91,17 @@ function lineThrough(task){
               aria-label="done"
               sx={{ bgcolor: colorIsDone(task) }}
               onClick={() => {
-                const isDone = showTasks.map((t) => {
-                  if (t.id === task.id) {
-                    return { ...t, isCompleted: !t.isCompleted };
-                  } else {
-                    return t;
-                  }
-                });
-                localStorage.setItem("todos", JSON.stringify(isDone));
-                setShowTasks(isDone);
+                dispatch({type : "isCompleted", payload : task.id})
+               
+                // const isDone = showTasks.map((t) => {
+                //   if (t.id === task.id) {
+                //     return { ...t, isCompleted: !t.isCompleted };
+                //   } else {
+                //     return t;
+                //   }
+                // });
+                // localStorage.setItem("todos", JSON.stringify(isDone));
+                // setShowTasks(isDone);
               }}
             >
               <CheckOutlinedIcon style={{ color: "white" }} fontSize="small" />

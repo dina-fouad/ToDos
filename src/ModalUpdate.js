@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { TodoContext } from "./TodoContext";
 
 export default function ModalUpdate({ showModal, setShowModal, indexId,index ,toastMsg}) {
-  const { showTasks, setShowTasks } = useContext(TodoContext);
+  const { showTasks, dispatch } = useContext(TodoContext);
   const [title, setTitle] = useState(showTasks[index].task);
 
   function handleClose() {
@@ -17,19 +17,23 @@ export default function ModalUpdate({ showModal, setShowModal, indexId,index ,to
   }
 
   function updateTsk() {
-    toastMsg("!تم تعديل بنجاح", "success");
-    const updatedTasks = showTasks.map((t) => {
-      if (t.id === indexId) {
-        return {
-          ...t,
-          task: title,
+   toastMsg("!تم تعديل بنجاح", "success");
+   dispatch({type : "updated" , payload : {
+    indexId : indexId,
+    title : title
+   }})
+    // const updatedTasks = showTasks.map((t) => {
+    //   if (t.id === indexId) {
+    //     return {
+    //       ...t,
+    //       task: title,
           
-        };
-      }
-      return t;
-    });
-    setShowTasks(updatedTasks);
-    localStorage.setItem("todos", JSON.stringify(updatedTasks));
+    //     };
+    //   }
+    //   return t;
+    // });
+    // setShowTasks(updatedTasks);
+    // localStorage.setItem("todos", JSON.stringify(updatedTasks));
     setShowModal(false);
   }
 
