@@ -8,6 +8,9 @@ import ComplitedTsks from "./ComplitedTasks";
 import { TodoContext } from "./TodoContext";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
+import { useReducer } from "react";
+import reducer from "./TodoReducer";
+
 
 const theme = createTheme({
   palette: {
@@ -31,9 +34,11 @@ const theme = createTheme({
 });
 
 function App() {
-  const [showTasks, setShowTasks] = useState([]);
+  // const [showTasks, setShowTasks] = useState([]);
   const [displayTasks, setDisplayTasks] = useState("");
   const { enqueueSnackbar } = useSnackbar();
+  const [showTasks, dispatch] = useReducer(reducer, []);
+
 
   function toastMsg(msg, type) {
     enqueueSnackbar(msg, { variant: type });
@@ -63,7 +68,7 @@ function App() {
 
   return (
     <>
-      <TodoContext.Provider value={{ showTasks, setShowTasks }}>
+      <TodoContext.Provider value={{ showTasks ,dispatch}}>
         <ThemeProvider theme={theme}>
           <Container
             maxWidth="sm"

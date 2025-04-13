@@ -8,15 +8,17 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useContext } from "react";
 import { TodoContext } from "./TodoContext";
 
-export default function ModalMsg({ show, setShow, index ,toastMsg}) {
-  const { showTasks, setShowTasks } = useContext(TodoContext);
 
+export default function ModalMsg({ show, setShow, index, toastMsg }) {
+  // const { showTasks, setShowTasks } = useContext(TodoContext);
+  const { showTasks, dispatch } = useContext(TodoContext);
   function dltTask() {
+    dispatch({ type: "deleted", payload: index });
     toastMsg("تم حذف المهمة بنجاح", "error");
-    const deleteTask = [...showTasks];
-    deleteTask.splice(index, 1);
-    localStorage.setItem("todos", JSON.stringify(deleteTask));
-    setShowTasks(deleteTask);
+    // const deleteTask = [...showTasks];
+    // deleteTask.splice(index, 1);
+    // localStorage.setItem("todos", JSON.stringify(deleteTask));
+    // setShowTasks(deleteTask);
   }
   const handleClose = () => {
     setShow(false);
@@ -24,12 +26,11 @@ export default function ModalMsg({ show, setShow, index ,toastMsg}) {
   return (
     <React.Fragment>
       <Dialog
-      style={{direction :"rtl"}}
+        style={{ direction: "rtl" }}
         open={show}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
         disableRestoreFocus
-   
       >
         <DialogTitle id="responsive-dialog-title">{"حذف المهمة"}</DialogTitle>
         <DialogContent>
